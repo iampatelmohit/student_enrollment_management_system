@@ -1,0 +1,291 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Enrollment Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🎓 Student Enrollment System</h1>
+            <p>Comprehensive student management and enrollment tracking</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="showTab('enrollment')">📝 New Enrollment</button>
+            <button class="tab-btn" onclick="showTab('students')">👥 Student Records</button>
+            <button class="tab-btn" onclick="showTab('search')">🔍 Search & Filter</button>
+            <button class="tab-btn" onclick="showTab('analytics')">📊 Analytics</button>
+        </div>
+
+        <!-- Enrollment Form Tab -->
+        <div id="enrollmentTab" class="tab-content active">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📝</div>
+                    <h2 class="card-title">Student Enrollment Form</h2>
+                </div>
+                
+                <form id="enrollmentForm">
+                    <div class="form-grid">
+                        <!-- Personal Information -->
+                        <div class="form-section">
+                            <h3 class="section-title">Personal Information</h3>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Full Name *</label>
+                                <input type="text" id="fullName" class="form-input" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Email Address *</label>
+                                <input type="email" id="email" class="form-input" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" id="phone" class="form-input">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Date of Birth</label>
+                                <input type="date" id="dob" class="form-input">
+                            </div>
+                        </div>
+
+                        <!-- Academic Information -->
+                        <div class="form-section">
+                            <h3 class="section-title">Academic Information</h3>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Program *</label>
+                                <select id="program" class="form-select" required>
+                                    <option value="">Select Program</option>
+                                    <option value="Computer Science">Computer Science</option>
+                                    <option value="Business Administration">Business Administration</option>
+                                    <option value="Engineering">Engineering</option>
+                                    <option value="Medicine">Medicine</option>
+                                    <option value="Arts & Literature">Arts & Literature</option>
+                                    <option value="Mathematics">Mathematics</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Academic Year *</label>
+                                <select id="academicYear" class="form-select" required>
+                                    <option value="">Select Year</option>
+                                    <option value="2024-2025">2024-2025</option>
+                                    <option value="2025-2026">2025-2026</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Enrollment Type *</label>
+                                <select id="enrollmentType" class="form-select" required>
+                                    <option value="">Select Type</option>
+                                    <option value="Full-time">Full-time</option>
+                                    <option value="Part-time">Part-time</option>
+                                    <option value="Online">Online</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Previous GPA</label>
+                                <input type="number" id="gpa" class="form-input" step="0.01" min="0" max="4">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Address Information -->
+                    <div class="form-section">
+                        <h3 class="section-title">Address Information</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                            <div class="form-group">
+                                <label class="form-label">Street Address</label>
+                                <input type="text" id="address" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">City</label>
+                                <input type="text" id="city" class="form-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 30px;">
+                        <button type="submit" class="btn btn-primary">🎓 Enroll Student</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Student Records Tab -->
+        <div id="studentsTab" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">👥</div>
+                    <h2 class="card-title">Student Records</h2>
+                    <div style="margin-left: auto; color: #667eea; font-weight: 600;">
+                        Total Students: <span id="totalStudents">0</span>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Program</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTableBody">
+                            <tr>
+                                <td colspan="7" class="empty-state">
+                                    <div class="empty-state-icon">📚</div>
+                                    <div>No students enrolled yet. Use the enrollment form to add students.</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search & Filter Tab -->
+        <div id="searchTab" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🔍</div>
+                    <h2 class="card-title">Search & Filter Students</h2>
+                </div>
+                
+                <div class="search-filters">
+                    <div class="form-group">
+                        <label class="form-label">Search by Name</label>
+                        <input type="text" id="searchName" class="form-input" placeholder="Enter student name...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Filter by Program</label>
+                        <select id="filterProgram" class="form-select">
+                            <option value="">All Programs</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Business Administration">Business Administration</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Medicine">Medicine</option>
+                            <option value="Arts & Literature">Arts & Literature</option>
+                            <option value="Mathematics">Mathematics</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Filter by Type</label>
+                        <select id="filterType" class="form-select">
+                            <option value="">All Types</option>
+                            <option value="Full-time">Full-time</option>
+                            <option value="Part-time">Part-time</option>
+                            <option value="Online">Online</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <button onclick="applyFilters()" class="btn btn-primary">Apply Filters</button>
+                </div>
+                
+                <div id="searchResults">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🔍</div>
+                        <div>Use the filters above to search for students</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Tab -->
+        <div id="analyticsTab" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📊</div>
+                    <h2 class="card-title">Enrollment Analytics</h2>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalEnrolled">0</div>
+                        <div class="stat-label">Total Enrolled</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="activeStudents">0</div>
+                        <div class="stat-label">Active Students</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">Programs Available</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="avgGPA">0.0</div>
+                        <div class="stat-label">Average GPA</div>
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                    <div>
+                        <h3 style="color: #333; margin-bottom: 20px;">Enrollment by Program</h3>
+                        <div id="programStats">
+                            <div class="empty-state">
+                                <div style="font-size: 2rem; margin-bottom: 10px;">📈</div>
+                                <div>No enrollment data available</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #333; margin-bottom: 20px;">Enrollment by Type</h3>
+                        <div id="typeStats">
+                            <div class="empty-state">
+                                <div style="font-size: 2rem; margin-bottom: 10px;">📊</div>
+                                <div>No enrollment data available</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Modal -->
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Edit Student Status</h3>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Status</label>
+                    <select id="editStatus" class="form-select">
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                        <option value="Graduated">Graduated</option>
+                        <option value="Suspended">Suspended</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button onclick="closeEditModal()" class="btn btn-secondary">Cancel</button>
+                    <button onclick="saveEdit()" class="btn btn-success">Save Changes</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Message -->
+        <div id="successMessage" class="success-message">
+            ✅ <span>Student enrolled successfully!</span>
+        </div>
+    </div>
+    <script src="./iife.js"></script>
+   <script src="./script.js" ></script>
+</body>
+</html>
