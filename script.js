@@ -384,37 +384,52 @@ document.getElementById('filterProgram').addEventListener('change', applyFilters
 document.getElementById('filterType').addEventListener('change', applyFilters);
 
 // Initialize with sample data
-function initializeSampleData() {
+ function initializeSampleData() {
     const sampleStudents = [
         {
             id: studentIdCounter++,
-            fullName: "Alice Johnson",
-            email: "alice.johnson@email.com",
-            phone: "555-0123",
-            dob: "2000-05-15",
+            fullName: "Mohit Patel",
+            email: "mohitpatel221103@gmail.com",
+            phone: "9125081149",
+            dob: "2003-06-12",
             program: "Computer Science",
             academicYear: "2024-2025",
             enrollmentType: "Full-time",
             gpa: "3.8",
-            address: "123 Main St",
-            city: "Springfield",
+            address: "Lahartara",
+            city: "Varanasi",
             status: "Active",
-            enrollmentDate: "2024-01-15"
+            enrollmentDate: "2025-09-15"
+        },
+         {
+            id: studentIdCounter++,
+            fullName: "Satyam Nishad",
+            email: "satyam540@gmail.com",
+            phone: "9225081149",
+            dob: "2002-08-12",
+            program: "Computer Science",
+            academicYear: "2024-2025",
+            enrollmentType: "Full-time",
+            gpa: "4.0",
+            address: "UnivercityRoad",
+            city: "Gorakhpur",
+            status: "Active",
+            enrollmentDate: "2025-09-19"
         },
         {
             id: studentIdCounter++,
-            fullName: "Bob Smith",
-            email: "bob.smith@email.com",
-            phone: "555-0124",
-            dob: "1999-08-22",
+            fullName: "Ashutosh Shukla",
+            email: "pandit707@email.com",
+            phone: "9876543210",
+            dob: "2001-08-22",
             program: "Business Administration",
             academicYear: "2024-2025",
             enrollmentType: "Part-time",
             gpa: "3.5",
-            address: "456 Oak Ave",
-            city: "Springfield",
+            address: "Charbagh",
+            city: "Amethi",
             status: "Active",
-            enrollmentDate: "2024-01-20"
+            enrollmentDate: "2025-09-20"
         }
     ];
 
