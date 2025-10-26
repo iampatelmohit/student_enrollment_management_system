@@ -121,6 +121,46 @@
                 </form>
             </div>
         </div>
+     <!-- download details -->
+ <div id="studentsTab" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">👥</div>
+                    <h2 class="card-title">Student Records</h2>
+                    <div style="margin-left: auto; color: #667eea; font-weight: 600;">
+                        Total Students: <span id="totalStudents">0</span>
+                    </div>
+                </div>
+                
+                <div style="text-align: right; margin-bottom: 20px;">
+                    <button onclick="exportStudentDataToCSV()" class="btn btn-success">
+                        📥 Export All Data (CSV)
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table class="table" id="studentsTable"> <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Program</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTableBody">
+                            <tr>
+                                <td colspan="7" class="empty-state">
+                                    <div class="empty-state-icon">📚</div>
+                                    <div>No students enrolled yet. Use the enrollment form to add students.</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
         <!-- Student Records Tab -->
         <div id="studentsTab" class="tab-content">
