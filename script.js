@@ -146,7 +146,121 @@ function cancelDelete(button, originalContent) {
     const actionsCell = button.closest('td');
     actionsCell.innerHTML = originalContent;
 }
+// download student data as JSON
+// Function to convert JSON array (students data) to CSV string
+function convertJSONToCSV(objArray) {
+    const array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
+    let str = '';
+    
+    // 1. Generate Header Row (Use Keys from the first object)
+    // We explicitly define the keys to ensure order and inclusion of all fields
+    const headers = [
+        "ID", "Full Name", "Email", "Phone", "Date of Birth", 
+        "Program", "Academic Year", "Enrollment Type", "GPA", 
+        "Address", "City", "Status", "Enrollment Date"
+    ];
+    
+    // Convert headers to comma-separated string, enclosed in quotes
+    str += headers.map(header => `"${header}"`).join(',') + '\r\n'; // \r\n for new line
 
+    // 2. Iterate through each student object to generate data rows
+    for (let i = 0; i < array.length; i++) {
+        let line = '';
+        
+        // Ensure data is added in the same order as headers
+        const student = array[i];
+        const rowData = [
+            student.id, student.fullName, student.email, student.phone, student.dob,
+            student.program, student.academicYear, student.enrollmentType, student.gpa,
+            student.address, student.city, student.status, student.enrollmentDate
+        ];
+
+        // Format each piece of data, replacing any inner double quotes or commas, and enclose in quotes
+        line = rowData.map(val => {
+            if (val === null || val === undefined) return '""';
+            let strVal = String(val).replace(/"/g, '""'); // Escape double quotes
+            return `"${strVal}"`;
+        }).join(',');
+        
+        str += line + '\r\n';
+    }
+
+    return str;
+}
+// function to export student data to csv file
+function convertJSONToCSV(objArray) {
+    const array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
+    let str = '';
+    
+    // 1. Generate Header Row (Use Keys from the first object)
+    // We explicitly define the keys to ensure order and inclusion of all fields
+    const headers = [
+        "ID", "Full Name", "Email", "Phone", "Date of Birth", 
+        "Program", "Academic Year", "Enrollment Type", "GPA", 
+        "Address", "City", "Status", "Enrollment Date"
+    ];
+    
+    // Convert headers to comma-separated string, enclosed in quotes
+    str += headers.map(header => `"${header}"`).join(',') + '\r\n'; // \r\n for new line
+
+    // 2. Iterate through each student object to generate data rows
+    for (let i = 0; i < array.length; i++) {
+        let line = '';
+        
+        // Ensure data is added in the same order as headers
+        const student = array[i];
+        const rowData = [
+            student.id, student.fullName, student.email, student.phone, student.dob,
+            student.program, student.academicYear, student.enrollmentType, student.gpa,
+            student.address, student.city, student.status, student.enrollmentDate
+        ];
+
+        // Format each piece of data, replacing any inner double quotes or commas, and enclose in quotes
+        line = rowData.map(val => {
+            if (val === null || val === undefined) return '""';
+            let strVal = String(val).replace(/"/g, '""'); // Escape double quotes
+            return `"${strVal}"`;
+        }).join(',');
+        
+        str += line + '\r\n';
+    }
+
+    return str;
+}
+
+// Function to export all students data to a downloadable CSV file
+function exportStudentDataToCSV() {
+    if (students.length === 0) {
+        showSuccessMessage('No data to export!');
+        return;
+    }
+
+    // Convert the global students array to CSV string
+    const csvString = convertJSONToCSV(students);
+
+    // Create a Blob and download the file
+    const filename = 'Student_Enrollment_Data.csv';
+    const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+    
+    // Create a temporary link element for download
+    const link = document.createElement("a");
+    
+    if (navigator.msSaveBlob) { // For IE 10+
+        navigator.msSaveBlob(blob, filename);
+    } else {
+        // For modern browsers
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", filename);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url); // Clean up
+    }
+
+    showSuccessMessage('Student data exported successfully!');
+}
 // Apply filters
 function applyFilters() {
     const searchName = document.getElementById('searchName').value.toLowerCase();
